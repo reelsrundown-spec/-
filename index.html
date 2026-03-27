@@ -3,67 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Thalappanth</title>
-    <link rel="manifest" href="manifest.json">
-    
+    <title>Thalappanth - Loading</title>
     <style>
         body, html {
             margin: 0; padding: 0; width: 100%; height: 100%;
-            overflow: hidden; background-color: #000;
+            overflow: hidden; background-color: #0d1b2a;
             display: flex; justify-content: center; align-items: center;
+            font-family: 'Segoe UI', sans-serif;
         }
-        #gameCanvas {
-            background-image: url('assets/loading-bg.png');
-            background-size: cover;
-            background-position: center;
-            display: none; /* Initially hidden */
+
+        #loading-bg {
+            position: absolute; width: 100%; height: 100%;
+            background: radial-gradient(circle, #1b263b, #0d1b2a);
+            z-index: -1;
         }
+
+        #loading-container { text-align: center; color: white; }
+
+        .logo {
+            font-size: clamp(40px, 8vw, 60px);
+            font-weight: 900; color: #f1c40f;
+            text-shadow: 0 0 20px rgba(241, 196, 15, 0.5);
+            margin-bottom: 20px; letter-spacing: 10px;
+        }
+
+        .progress-box {
+            width: 280px; height: 8px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px; overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.2);
+            margin: 0 auto;
+        }
+
+        #progress-bar {
+            width: 0%; height: 100%;
+            background: linear-gradient(90deg, #f1c40f, #e67e22);
+            box-shadow: 0 0 10px #f1c40f;
+        }
+
+        #status {
+            margin-top: 15px; font-size: 12px;
+            text-transform: uppercase; letter-spacing: 2px; color: #bdc3c7;
+        }
+
+        #tap-msg {
+            display: none; margin-top: 20px;
+            font-size: 22px; font-weight: bold; color: #fff;
+            animation: blink 1.2s infinite; cursor: pointer;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.2; }
+        }
+
         #rotateMessage {
-            color: white; font-family: sans-serif; text-align: center;
-            display: none; /* Only shows when in portrait */
+            display: none; position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #000; color: white;
+            justify-content: center; align-items: center;
+            text-align: center; z-index: 100;
         }
     </style>
 </head>
 <body>
 
     <div id="rotateMessage">
-        <h2>Please Rotate Your Phone</h2>
-        <p>Landscape mode is better for Thalappanth!</p>
+        <h2>PLEASE ROTATE YOUR PHONE</h2>
+        <p>Landscape mode is required for Thalappanth!</p>
     </div>
-    
-    <canvas id="gameCanvas"></canvas>
+
+    <div id="loading-bg"></div>
+
+    <div id="loading-container">
+        <div class="logo">THALAPANTH</div>
+        
+        <div id="loader-section">
+            <div class="progress-box">
+                <div id="progress-bar"></div>
+            </div>
+            <p id="status">INITIALIZING...</p>
+        </div>
+
+        <div id="tap-msg">TAP TO START</div>
+    </div>
 
     <script>
-        const canvas = document.getElementById('gameCanvas');
+        const progressBar = document.getElementById('progress-bar');
+        const statusText = document.getElementById('status');
+        const loaderSection = document.getElementById('loader-section');
+        const tapMsg = document.getElementById('tap-msg');
         const rotateMsg = document.getElementById('rotateMessage');
-        const ctx = canvas.getContext('2d');
 
         function checkOrientation() {
             if (window.innerHeight > window.innerWidth) {
-                // Portrait mode
-                canvas.style.display = 'none';
-                rotateMsg.style.display = 'block';
+                rotateMsg.style.display = 'flex';
             } else {
-                // Landscape mode
-                canvas.style.display = 'block';
                 rotateMsg.style.display = 'none';
-                resizeCanvas();
             }
         }
 
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+        let width = 0;
+        const loadingInterval = setInterval(() => {
+            if (width >= 100) {
+                clearInterval(loadingInterval);
+                showStartButton();
+            } else {
+                width += Math.random() * 8; 
+                if (width > 100) width = 100;
+                progressBar.style.width = width + '%';
+                statusText.innerText = "LOADING... " + Math.floor(width) + "%";
+            }
+        }, 120);
+
+        function showStartButton() {
+            loaderSection.style.display = 'none';
+            tapMsg.style.display = 'block';
+            
+            document.body.onclick = function() {
+                window.location.href = 'home.html';
+            };
         }
 
         window.addEventListener('resize', checkOrientation);
         window.addEventListener('load', checkOrientation);
-
-        function update() {
-            // Future game logic goes here
-            requestAnimationFrame(update);
-        }
-        update();
     </script>
 </body>
 </html>
