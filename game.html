@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Thalappanth - Stadium</title>
+    <style>
+        body, html {
+            margin: 0; padding: 0; width: 100%; height: 100%;
+            overflow: hidden; background-color: #27ae60; /* Grass Green */
+            font-family: Arial, sans-serif;
+        }
+
+        /* Stadium Background */
+        #stadium {
+            position: relative;
+            width: 100vw; height: 100vh;
+            background: linear-gradient(to bottom, #2ecc71 50%, #27ae60 50%);
+            background-size: 100% 40px; /* Grass Stripes */
+            border-bottom: 10px solid #fff; /* Ground line */
+        }
+
+        /* Goal Posts */
+        .goal {
+            position: absolute; bottom: 10px;
+            width: 60px; height: 150px;
+            border: 4px solid white; border-bottom: none;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .left-goal { left: 0; border-left: none; }
+        .right-goal { right: 0; border-right: none; }
+
+        /* Score Board */
+        .scoreboard {
+            position: absolute; top: 20px; left: 50%;
+            transform: translateX(-50%);
+            display: flex; gap: 20px;
+            background: rgba(0,0,0,0.5); padding: 10px 30px;
+            border-radius: 10px; color: white; font-size: 24px; font-weight: bold;
+        }
+
+        /* Mobile Controls (Placeholders) */
+        .controls {
+            position: absolute; bottom: 20px; width: 100%;
+            display: flex; justify-content: space-between; padding: 0 40px;
+            box-sizing: border-box; pointer-events: none;
+        }
+
+        .joystick, .action-btn {
+            width: 80px; height: 80px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 50%; pointer-events: auto;
+            display: flex; justify-content: center; align-items: center;
+            color: white; font-weight: bold;
+        }
+
+        .back-btn {
+            position: absolute; top: 20px; left: 20px;
+            padding: 10px; background: #c0392b; color: white;
+            border: none; border-radius: 5px; cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="stadium">
+        <button class="back-btn" onclick="location.href='home.html'">Exit</button>
+
+        <div class="scoreboard">
+            <span id="p1-score">0</span>
+            <span>-</span>
+            <span id="p2-score">0</span>
+        </div>
+
+        <div class="goal left-goal"></div>
+        <div class="goal right-goal"></div>
+
+        <div class="controls">
+            <div class="joystick">MOVE</div>
+            <div class="action-btn" style="background: #e67e22;">KICK</div>
+        </div>
+    </div>
+
+</body>
+</html>
+
