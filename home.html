@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Thalappanth - Home</title>
+    <title>Thalappanth - Home Screen</title>
     <style>
         body, html {
             margin: 0; padding: 0; width: 100%; height: 100%;
-            overflow: hidden; background: linear-gradient(180deg, #0984e3, #6c5ce7);
+            overflow: hidden;
+            background: url('assets/castle.png') no-repeat center center;
+            background-size: cover;
             font-family: 'Arial', sans-serif; color: white;
         }
 
@@ -15,109 +17,134 @@
         .top-bar {
             position: absolute; top: 0; width: 100%;
             display: flex; justify-content: space-between; align-items: center;
-            padding: 10px 20px; box-sizing: border-box;
-            background: rgba(0,0,0,0.3); z-index: 10;
+            padding: 15px 25px; box-sizing: border-box;
+            background: rgba(0,0,0,0.5);
         }
 
-        .stats { display: flex; gap: 10px; }
+        .stats-container { display: flex; gap: 10px; }
 
-        .stat-item {
-            background: rgba(0,0,0,0.5); border: 2px solid #2d3436;
-            border-radius: 8px; display: flex; align-items: center;
-            padding: 4px 10px; min-width: 90px; font-weight: bold;
+        .stat-box {
+            background: rgba(0,0,0,0.7); border: 2px solid #444;
+            border-radius: 10px; display: flex; align-items: center;
+            padding: 5px 12px; min-width: 105px; font-weight: bold;
         }
 
         .add-btn {
             background: #2ecc71; border: none; color: white;
-            margin-left: auto; border-radius: 4px; font-size: 14px;
-            cursor: pointer; padding: 0 5px;
+            margin-left: auto; border-radius: 4px; padding: 2px 8px;
+            cursor: pointer;
         }
 
-        .level-section {
-            display: flex; align-items: center; gap: 8px;
+        .level-container {
+            display: flex; align-items: center; background: rgba(0,0,0,0.6);
+            padding: 5px 15px; border-radius: 25px; gap: 10px;
         }
 
-        .lvl-circle {
-            background: #e17055; width: 30px; height: 30px;
+        .lvl-badge {
+            background: #8e44ad; width: 35px; height: 35px;
             border-radius: 50%; display: flex; justify-content: center;
-            align-items: center; font-weight: bold; border: 2px solid white;
+            align-items: center; font-weight: bold; border: 2px solid #fff;
         }
 
-        .lvl-bar-bg {
-            width: 80px; height: 10px; background: #2d3436;
-            border-radius: 5px; overflow: hidden;
+        .lvl-bar {
+            width: 100px; height: 12px; background: #2c3e50;
+            border-radius: 10px; overflow: hidden;
         }
 
-        .lvl-bar-fill { width: 60%; height: 100%; background: #f1c40f; }
+        .lvl-fill { width: 45%; height: 100%; background: #f1c40f; }
 
-        /* Character Display */
-        .character-container {
+        /* Character & Editable Name Area */
+        .main-display {
             height: 100vh; display: flex; flex-direction: column;
             justify-content: center; align-items: center;
         }
 
         .character-img {
-            width: 150px; height: 150px; border-radius: 50%;
-            border: 5px solid #fdcb6e; background: rgba(255,255,255,0.1);
-            object-fit: cover;
+            width: 180px; height: 180px;
+            border: 6px solid #f1c40f; border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            object-fit: cover; box-shadow: 0 0 30px rgba(241, 196, 15, 0.4);
         }
 
-        .username {
-            margin-top: 10px; background: #d63031;
-            padding: 5px 20px; border-radius: 5px; font-weight: bold;
+        .name-container {
+            margin-top: 15px; display: flex; align-items: center;
+            background: #c0392b; padding: 8px 20px; border-radius: 8px;
+            box-shadow: 0 4px 0 #962d22; gap: 10px;
         }
+
+        #player-name {
+            background: none; border: none; color: white;
+            font-weight: bold; font-size: 18px; text-transform: uppercase;
+            text-align: center; width: auto; max-width: 150px;
+            outline: none;
+        }
+
+        .edit-icon { cursor: pointer; font-size: 16px; opacity: 0.8; }
+        .edit-icon:hover { opacity: 1; }
 
         /* Bottom Menu */
-        .bottom-nav {
+        .bottom-bar {
             position: absolute; bottom: 0; width: 100%;
             display: flex; justify-content: space-around; align-items: center;
-            padding: 15px; box-sizing: border-box; background: rgba(0,0,0,0.2);
+            padding: 20px; box-sizing: border-box;
+            background: rgba(0,0,0,0.5);
         }
 
         .play-btn {
             background: #27ae60; color: white; border: none;
-            padding: 12px 60px; border-radius: 30px; font-size: 26px;
+            padding: 12px 70px; border-radius: 40px; font-size: 30px;
             font-weight: 900; cursor: pointer;
-            box-shadow: 0 5px 0 #1e8449; transition: 0.1s;
+            box-shadow: 0 6px 0 #1e8449; transition: 0.1s;
         }
 
-        .play-btn:active {
-            transform: translateY(3px); box-shadow: 0 2px 0 #1e8449;
-        }
+        .play-btn:active { transform: translateY(4px); box-shadow: 0 2px 0 #1e8449; }
 
-        .nav-btn {
-            background: #34495e; border: none; padding: 10px 15px;
-            border-radius: 10px; color: white; font-weight: bold;
-            box-shadow: 0 4px 0 #2c3e50;
+        .side-btn {
+            background: #34495e; border: none; border-radius: 12px;
+            padding: 12px 25px; font-weight: bold; color: white;
+            box-shadow: 0 4px 0 #2c3e50; cursor: pointer;
         }
     </style>
 </head>
 <body>
 
     <div class="top-bar">
-        <div class="stats">
-            <div class="stat-item">💰 20,380 <button class="add-btn">+</button></div>
-            <div class="stat-item">💎 35 <button class="add-btn">+</button></div>
+        <div class="stats-container">
+            <div class="stat-box">💰 20,380 <button class="add-btn">+</button></div>
+            <div class="stat-box">💎 35 <button class="add-btn">+</button></div>
         </div>
-
-        <div class="level-section">
-            <div class="lvl-circle">7</div>
-            <div class="lvl-bar-bg"><div class="lvl-bar-fill"></div></div>
+        <div class="level-container">
+            <div class="lvl-badge">7</div>
+            <div class="lvl-bar"><div class="lvl-fill"></div></div>
         </div>
-
-        <div class="nav-btn">⚙️ Settings</div>
+        <div style="cursor: pointer; font-size: 24px;">⚙️</div>
     </div>
 
-    <div class="character-container">
+    <div class="main-display">
         <img src="assets/player.png" alt="Player" class="character-img">
-        <div class="username">STARKUCHIHA</div>
+        
+        <div class="name-container">
+            <input type="text" id="player-name" value="LOADING..." maxlength="12">
+            <span class="edit-icon" onclick="document.getElementById('player-name').focus()">✏️</span>
+        </div>
     </div>
 
-    <div class="bottom-nav">
-        <button class="nav-btn">STORE</button>
-        <button class="play-btn">PLAY</button>
-        <button class="nav-btn">RANK</button>
+    <div class="bottom-bar">
+        <button class="side-btn">Shop</button>
+        <button class="play-btn" onclick="location.href='game.html'">Play</button>
+        <button class="side-btn">Rank</button>
     </div>
+
+    <script>
+        // Random Name Generator
+        const randomNames = ["StrikerX", "GoaliePro", "Thala_07", "KingFoot", "ShadowBox", "TurboKick"];
+        
+        window.onload = () => {
+            const nameField = document.getElementById('player-name');
+            const random = randomNames[Math.floor(Math.random() * randomNames.length)];
+            nameField.value = random;
+        };
+    </script>
 
 </body>
 </html>
