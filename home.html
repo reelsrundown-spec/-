@@ -3,160 +3,138 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    
     <title>Thalappanth - Home</title>
     <style>
-body, html {
-    margin: 0;
-    padding: 0;
-    width: 100vw;
-    height: 100vh;
-    background-size: 100% 100% !important; /* Force background to edges */
-    position: fixed; /* Prevents scrolling/bouncing */
-}
+        * { box-sizing: border-box; }
         
-/* Container to ensure UI elements respect the safe area (notch) */
-.main-wrapper {
-    width: 100%;
-    height: 100%;
-    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
-    box-sizing: border-box;
-}
-        
-        /* Top Bar Section */
-        .top-bar {
-            position: absolute; top: 0; width: 100%;
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 15px 20px; box-sizing: border-box;
-            background: rgba(0,0,0,0.5); z-index: 10;
+        body, html {
+            margin: 0; padding: 0;
+            width: 100%; height: 100%;
+            overflow: hidden;
+            background-color: #000; /* Fallback color */
         }
 
-        .stats-group { display: flex; gap: 12px; }
+        /* Full Screen Background Fix */
+        .bg-layer {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: url('assets/home-bg.jpg') no-repeat center center;
+            background-size: 100% 100%;
+            z-index: -1;
+        }
+
+        .ui-container {
+            position: relative;
+            width: 100%; height: 100%;
+            display: flex; flex-direction: column;
+            justify-content: space-between;
+            padding: 10px 20px;
+        }
+
+        /* Top Bar */
+        .top-bar {
+            display: flex; justify-content: space-between; align-items: center;
+        }
 
         .stat-item {
             background: rgba(0,0,0,0.7); border: 2px solid #444;
-            border-radius: 10px; display: flex; align-items: center;
-            padding: 5px 15px; min-width: 110px; font-weight: bold;
+            border-radius: 8px; display: inline-flex; align-items: center;
+            padding: 5px 12px; min-width: 100px; color: white; font-weight: bold;
+            margin-right: 10px;
         }
 
-        .btn-plus {
-            background: #2ecc71; border: none; color: white;
-            margin-left: auto; border-radius: 4px; padding: 0 8px;
-            font-weight: bold; cursor: pointer;
-        }
-
-        .level-badge {
+        .lvl-badge {
             background: #8e44ad; width: 35px; height: 35px;
             border-radius: 50%; display: flex; justify-content: center;
-            align-items: center; border: 2px solid white; font-weight: bold;
+            align-items: center; border: 2px solid white; color: white; font-weight: bold;
         }
 
-        /* Center Character Area */
-        .character-zone {
-            height: 100vh; display: flex; flex-direction: column;
+        /* Center Area */
+        .center-area {
+            flex-grow: 1; display: flex; flex-direction: column;
             justify-content: center; align-items: center;
         }
 
-        /* Avatar Placeholder since you're not adding player.png now */
-        .avatar-placeholder {
+        .avatar-circle {
             width: 160px; height: 160px; border-radius: 50%;
-            border: 6px solid #f1c40f; background: rgba(255,255,255,0.1);
+            border: 5px solid #f1c40f; background: rgba(255,255,255,0.1);
             display: flex; justify-content: center; align-items: center;
-            font-size: 80px; box-shadow: 0 0 30px rgba(241, 196, 15, 0.4);
+            box-shadow: 0 0 20px rgba(241, 196, 15, 0.4);
         }
 
-        /* Editable Name Styling */
-        .name-wrapper {
-            margin-top: 20px; display: flex; align-items: center;
-            background: #c0392b; padding: 10px 25px; border-radius: 8px;
-            box-shadow: 0 5px 0 #962d22; gap: 12px;
+        .avatar-circle img { width: 100%; height: 100%; object-fit: cover; }
+
+        .name-tag {
+            margin-top: 15px; background: #c0392b; color: white;
+            padding: 8px 25px; border-radius: 8px; display: flex; align-items: center;
+            box-shadow: 0 4px 0 #962d22; gap: 10px;
         }
 
-        #p-name-input {
-            background: none; border: none; color: white;
-            font-weight: bold; font-size: 20px; text-transform: uppercase;
-            text-align: center; outline: none; width: 140px;
+        #p-name {
+            background: none; border: none; color: white; font-weight: bold;
+            font-size: 18px; text-transform: uppercase; text-align: center;
+            outline: none; width: 120px;
         }
-
-        .edit-pencil { cursor: pointer; font-size: 18px; filter: grayscale(1); transition: 0.2s; }
-        .edit-pencil:hover { filter: grayscale(0); transform: scale(1.2); }
 
         /* Bottom Menu */
         .bottom-nav {
-            position: absolute; bottom: 0; width: 100%;
             display: flex; justify-content: space-around; align-items: center;
-            padding: 20px; box-sizing: border-box; background: rgba(0,0,0,0.4);
+            padding-bottom: 10px;
         }
 
-        .btn-play {
+        .play-btn {
             background: #27ae60; color: white; border: none;
-            padding: 12px 80px; border-radius: 45px; font-size: 32px;
-            font-weight: 900; cursor: pointer; letter-spacing: 2px;
-            box-shadow: 0 7px 0 #1e8449; transition: 0.1s;
+            padding: 12px 60px; border-radius: 40px; font-size: 28px;
+            font-weight: 900; cursor: pointer; box-shadow: 0 6px 0 #1e8449;
         }
 
-        .btn-play:active { transform: translateY(4px); box-shadow: 0 3px 0 #1e8449; }
-
-        .btn-nav {
-            background: #34495e; border: none; padding: 12px 25px;
-            border-radius: 12px; color: white; font-weight: bold;
-            box-shadow: 0 4px 0 #2c3e50; cursor: pointer; text-transform: uppercase;
-        }
+        .nav-btn { background: #34495e; border: none; padding: 12px 20px; border-radius: 12px; color: white; font-weight: bold; }
     </style>
 </head>
 <body>
 
-    <div class="top-bar">
-        <div class="stats-group">
-            <div class="stat-item">💰 20,380 <button class="btn-plus">+</button></div>
-            <div class="stat-item">💎 35 <button class="btn-plus">+</button></div>
-        </div>
-        <div class="level-badge">7</div>
-        <div style="font-size: 26px; cursor: pointer;">⚙️</div>
-    </div>
+    <div class="bg-layer"></div>
 
-    <div class="character-zone">
-        <div class="avatar-placeholder">👤</div>
-        
-        <div class="name-wrapper">
-            <input type="text" id="p-name-input" value="LOADING..." maxlength="12">
-            <span class="edit-pencil" onclick="document.getElementById('p-name-input').focus()">✏️</span>
+    <div class="ui-container">
+        <div class="top-bar">
+            <div>
+                <div class="stat-item">💰 20,380</div>
+                <div class="stat-item">💎 35</div>
+            </div>
+            <div class="lvl-badge">7</div>
+            <div style="font-size: 24px; color: white;">⚙️</div>
         </div>
-    </div>
 
-    <div class="bottom-nav">
-        <button class="btn-nav">Store</button>
-        <button class="btn-play" onclick="location.href='game.html'">PLAY</button>
-        <button class="btn-nav">Rank</button>
-    </div>
+        <div class="center-area">
+            <div class="avatar-circle">
+                <img src="assets/player.png" alt="" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iIzM0OThkYiI+PHBhdGggZD0iTTEyIDJDNi40OCAyIDIgNi40OCAyIDEyczQuNDggMTAgMTAgMTAgMTAtNC40OCAxMC0xMFMxNy41MiAyIDEyIDJ6bTAgM2MzLjMxIDAgNiAyLjY5IDYgNnMtMi42OSA2LTYgNi02LTIuNjktNi02IDIuNjktNiA2LTZ6bTAgMTQuNmMtMi45NyAwLTUuNjEtMS4zMy03LjM0LTMuNCAuMDQtMi40MyA0Ljg0LTMuNyA3LjM0LTMuN3MyLjMzIDEuMjYgNy4zNCAzLjdjLTEuNzMgMi4wNy00LjM3IDMuNC03LjM0IDMuNHoiLz48L3N2Zz4='">
+            </div>
+            <div class="name-tag">
+                <input type="text" id="p-name" value="LOADING..." maxlength="10">
+                <span onclick="document.getElementById('p-name').focus()" style="cursor:pointer">✏️</span>
+            </div>
+        </div>
+
         <div class="bottom-nav">
-        <button class="nav-btn">SHOP</button>
-        <button class="play-btn" onclick="location.href='game.html'">PLAY</button>
-        <button class="nav-btn">RANK</button>
+            <button class="nav-btn">STORE</button>
+            <button class="play-btn" onclick="location.href='game.html'">PLAY</button>
+            <button class="nav-btn">RANK</button>
+        </div>
     </div>
 
     <script>
         function openFullscreen() {
             const elem = document.documentElement;
-            if (elem.requestFullscreen) {
-                elem.requestFullscreen();
-            } else if (elem.webkitRequestFullscreen) {
-                elem.webkitRequestFullscreen();
-            } else if (elem.msRequestFullscreen) {
-                elem.msRequestFullscreen();
-            }
+            if (elem.requestFullscreen) elem.requestFullscreen();
+            else if (elem.webkitRequestFullscreen) elem.webkitRequestFullscreen();
         }
-
-        // Triggers fullscreen on the first interaction
         document.addEventListener("click", openFullscreen, { once: true });
 
-        // Your other random name generator code can also stay here
-        const names = ["STARK", "ZODX", "THALA", "KICKER", "PRO_07"];
         window.onload = () => {
+            const names = ["STARK", "ZODX", "THALA", "SHADOW", "PRO_07"];
             document.getElementById('p-name').value = names[Math.floor(Math.random() * names.length)];
         };
     </script>
 </body>
 </html>
-
-    
