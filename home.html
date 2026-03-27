@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Thalappanth - Home</title>
+    <style>
+        body, html {
+            margin: 0; padding: 0; width: 100%; height: 100%;
+            overflow: hidden; background: linear-gradient(180deg, #0984e3, #6c5ce7);
+            font-family: 'Arial', sans-serif; color: white;
+        }
+
+        /* Top Bar */
+        .top-bar {
+            position: absolute; top: 0; width: 100%;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 10px 20px; box-sizing: border-box;
+            background: rgba(0,0,0,0.3); z-index: 10;
+        }
+
+        .stats { display: flex; gap: 10px; }
+
+        .stat-item {
+            background: rgba(0,0,0,0.5); border: 2px solid #2d3436;
+            border-radius: 8px; display: flex; align-items: center;
+            padding: 4px 10px; min-width: 90px; font-weight: bold;
+        }
+
+        .add-btn {
+            background: #2ecc71; border: none; color: white;
+            margin-left: auto; border-radius: 4px; font-size: 14px;
+            cursor: pointer; padding: 0 5px;
+        }
+
+        .level-section {
+            display: flex; align-items: center; gap: 8px;
+        }
+
+        .lvl-circle {
+            background: #e17055; width: 30px; height: 30px;
+            border-radius: 50%; display: flex; justify-content: center;
+            align-items: center; font-weight: bold; border: 2px solid white;
+        }
+
+        .lvl-bar-bg {
+            width: 80px; height: 10px; background: #2d3436;
+            border-radius: 5px; overflow: hidden;
+        }
+
+        .lvl-bar-fill { width: 60%; height: 100%; background: #f1c40f; }
+
+        /* Character Display */
+        .character-container {
+            height: 100vh; display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+        }
+
+        .character-img {
+            width: 150px; height: 150px; border-radius: 50%;
+            border: 5px solid #fdcb6e; background: rgba(255,255,255,0.1);
+            object-fit: cover;
+        }
+
+        .username {
+            margin-top: 10px; background: #d63031;
+            padding: 5px 20px; border-radius: 5px; font-weight: bold;
+        }
+
+        /* Bottom Menu */
+        .bottom-nav {
+            position: absolute; bottom: 0; width: 100%;
+            display: flex; justify-content: space-around; align-items: center;
+            padding: 15px; box-sizing: border-box; background: rgba(0,0,0,0.2);
+        }
+
+        .play-btn {
+            background: #27ae60; color: white; border: none;
+            padding: 12px 60px; border-radius: 30px; font-size: 26px;
+            font-weight: 900; cursor: pointer;
+            box-shadow: 0 5px 0 #1e8449; transition: 0.1s;
+        }
+
+        .play-btn:active {
+            transform: translateY(3px); box-shadow: 0 2px 0 #1e8449;
+        }
+
+        .nav-btn {
+            background: #34495e; border: none; padding: 10px 15px;
+            border-radius: 10px; color: white; font-weight: bold;
+            box-shadow: 0 4px 0 #2c3e50;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-bar">
+        <div class="stats">
+            <div class="stat-item">💰 20,380 <button class="add-btn">+</button></div>
+            <div class="stat-item">💎 35 <button class="add-btn">+</button></div>
+        </div>
+
+        <div class="level-section">
+            <div class="lvl-circle">7</div>
+            <div class="lvl-bar-bg"><div class="lvl-bar-fill"></div></div>
+        </div>
+
+        <div class="nav-btn">⚙️ Settings</div>
+    </div>
+
+    <div class="character-container">
+        <img src="assets/player.png" alt="Player" class="character-img">
+        <div class="username">STARKUCHIHA</div>
+    </div>
+
+    <div class="bottom-nav">
+        <button class="nav-btn">STORE</button>
+        <button class="play-btn">PLAY</button>
+        <button class="nav-btn">RANK</button>
+    </div>
+
+</body>
+</html>
