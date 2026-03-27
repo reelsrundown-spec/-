@@ -129,18 +129,34 @@ body, html {
         <button class="btn-play" onclick="location.href='game.html'">PLAY</button>
         <button class="btn-nav">Rank</button>
     </div>
+        <div class="bottom-nav">
+        <button class="nav-btn">SHOP</button>
+        <button class="play-btn" onclick="location.href='game.html'">PLAY</button>
+        <button class="nav-btn">RANK</button>
+    </div>
 
     <script>
-        // Array of random names
-        const coolNames = ["STARK", "ZODX", "THALA_07", "KICKER", "PRO_GAMER", "SHADOW"];
-        
+        function openFullscreen() {
+            const elem = document.documentElement;
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen();
+            } else if (elem.webkitRequestFullscreen) {
+                elem.webkitRequestFullscreen();
+            } else if (elem.msRequestFullscreen) {
+                elem.msRequestFullscreen();
+            }
+        }
+
+        // Triggers fullscreen on the first interaction
+        document.addEventListener("click", openFullscreen, { once: true });
+
+        // Your other random name generator code can also stay here
+        const names = ["STARK", "ZODX", "THALA", "KICKER", "PRO_07"];
         window.onload = () => {
-            const input = document.getElementById('p-name-input');
-            // Select a random name on load
-            const random = coolNames[Math.floor(Math.random() * coolNames.length)];
-            input.value = random;
+            document.getElementById('p-name').value = names[Math.floor(Math.random() * names.length)];
         };
     </script>
-
 </body>
 </html>
+
+    
