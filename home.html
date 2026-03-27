@@ -6,21 +6,15 @@
     
     <title>Thalappanth - Home</title>
     <style>
-        body, html {
-    margin: 0; 
-    padding: 0; 
-    width: 100vw; 
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
     height: 100vh;
-    min-height: -webkit-fill-available;
-    overflow: hidden;
-    /* Ensure the background image covers the entire screen including the notch */
-    background: url('assets/home-bg.jpg') no-repeat center center;
-    background-size: 100% 100%; /* Force stretch to fill edges */
-    background-attachment: fixed;
-    font-family: 'Arial', sans-serif; 
-    color: white;
+    background-size: 100% 100% !important; /* Force background to edges */
+    position: fixed; /* Prevents scrolling/bouncing */
 }
-
+        
 /* Container to ensure UI elements respect the safe area (notch) */
 .main-wrapper {
     width: 100%;
