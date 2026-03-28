@@ -15,15 +15,19 @@
         }
 
         /* Background Fix */
-        .bg-layer {
+                .bg-layer {
             position: fixed;
             top: 0; left: 0;
             width: 100vw; height: 100vh;
-            background: url('assets/home-bg.jpg') no-repeat center center;
+            /* Using a relative path that works best with GitHub Pages */
+            background-image: url('assets/home-bg.jpg');
+            background-position: center center;
+            background-repeat: no-repeat;
             background-size: cover;
             z-index: -1;
-            background-color: #0d1b2a; /* Dark blue fallback if image fails */
+            background-color: #0d1b2a; /* Fallback color */
         }
+
 
         .ui-container {
             position: relative;
