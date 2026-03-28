@@ -3,130 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Thalappanth - Loading</title>
+    <title>Thalappanth - Start</title>
+    <link rel="manifest" href="manifest.json">
     <style>
+        * { box-sizing: border-box; }
+        
         body, html {
-            margin: 0; padding: 0; width: 100%; height: 100%;
-            overflow: hidden; background-color: #0d1b2a;
+            margin: 0; padding: 0;
+            width: 100%; height: 100%;
+            overflow: hidden;
+            background-color: #000;
+        }
+
+        /* Tap to Start Background - Using your new image */
+        .loading-bg {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            /* Using the absolute path to ensure it works with GitHub Pages */
+            background: url('assets/image_12.png') no-repeat center center;
+            background-size: cover;
+            z-index: 1;
+        }
+
+        /* Tap overlay */
+        .tap-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.4); /* Darkens the image slightly to make text pop */
             display: flex; justify-content: center; align-items: center;
-            font-family: 'Segoe UI', sans-serif;
+            z-index: 10;
+            cursor: pointer;
+            flex-direction: column;
         }
 
-        #loading-bg {
-            position: absolute; width: 100%; height: 100%;
-            background: radial-gradient(circle, #1b263b, #0d1b2a);
-            z-index: -1;
+        /* Animated Text */
+        .tap-text {
+            color: #fff;
+            font-family: 'Arial Black', sans-serif;
+            font-size: 32px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.8);
+            animation: pulse 1.5s infinite;
         }
 
-        #loading-container { text-align: center; color: white; }
-
-        .logo {
-            font-size: clamp(40px, 8vw, 60px);
-            font-weight: 900; color: #f1c40f;
-            text-shadow: 0 0 20px rgba(241, 196, 15, 0.5);
-            margin-bottom: 20px; letter-spacing: 10px;
-        }
-
-        .progress-box {
-            width: 280px; height: 8px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 10px; overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.2);
-            margin: 0 auto;
-        }
-
-        #progress-bar {
-            width: 0%; height: 100%;
-            background: linear-gradient(90deg, #f1c40f, #e67e22);
-            box-shadow: 0 0 10px #f1c40f;
-        }
-
-        #status {
-            margin-top: 15px; font-size: 12px;
-            text-transform: uppercase; letter-spacing: 2px; color: #bdc3c7;
-        }
-
-        #tap-msg {
-            display: none; margin-top: 20px;
-            font-size: 22px; font-weight: bold; color: #fff;
-            animation: blink 1.2s infinite; cursor: pointer;
-        }
-
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.2; }
-        }
-
-        #rotateMessage {
-            display: none; position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: #000; color: white;
-            justify-content: center; align-items: center;
-            text-align: center; z-index: 100;
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.8; }
         }
     </style>
 </head>
 <body>
 
-    <div id="rotateMessage">
-        <h2>PLEASE ROTATE YOUR PHONE</h2>
-        <p>Landscape mode is required for Thalappanth!</p>
+    <div class="loading-bg"></div>
+
+    <div class="tap-overlay" onclick="location.href='home.html'">
+        <div class="tap-text">Tap to Start</div>
     </div>
 
-    <div id="loading-bg"></div>
-
-    <div id="loading-container">
-        <div class="logo">THALAPANTH</div>
-        
-        <div id="loader-section">
-            <div class="progress-box">
-                <div id="progress-bar"></div>
-            </div>
-            <p id="status">INITIALIZING...</p>
-        </div>
-
-        <div id="tap-msg">TAP TO START</div>
-    </div>
-
-    <script>
-        const progressBar = document.getElementById('progress-bar');
-        const statusText = document.getElementById('status');
-        const loaderSection = document.getElementById('loader-section');
-        const tapMsg = document.getElementById('tap-msg');
-        const rotateMsg = document.getElementById('rotateMessage');
-
-        function checkOrientation() {
-            if (window.innerHeight > window.innerWidth) {
-                rotateMsg.style.display = 'flex';
-            } else {
-                rotateMsg.style.display = 'none';
-            }
-        }
-
-        let width = 0;
-        const loadingInterval = setInterval(() => {
-            if (width >= 100) {
-                clearInterval(loadingInterval);
-                showStartButton();
-            } else {
-                width += Math.random() * 8; 
-                if (width > 100) width = 100;
-                progressBar.style.width = width + '%';
-                statusText.innerText = "LOADING... " + Math.floor(width) + "%";
-            }
-        }, 120);
-
-        function showStartButton() {
-            loaderSection.style.display = 'none';
-            tapMsg.style.display = 'block';
-            
-            document.body.onclick = function() {
-                window.location.href = 'home.html';
-            };
-        }
-
-        window.addEventListener('resize', checkOrientation);
-        window.addEventListener('load', checkOrientation);
-    </script>
 </body>
 </html>
