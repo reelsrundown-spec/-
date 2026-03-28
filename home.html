@@ -14,18 +14,18 @@
             background-color: #000;
         }
 
-        /* Updated Background Logic */
+                /* Fixed Background Section */
         .bg-layer {
             position: fixed;
             top: 0; left: 0;
             width: 100vw; height: 100vh;
-            /* Double check if your filename is home-bg.jpg in GitHub assets folder */
-            background-image: url('./assets/home-bg.jpg');
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: 100% 100%;
+            /* Direct link to your github asset */
+            background: url('assets/home-bg.jpg') no-repeat center center;
+            background-size: cover; /* Forces the image to cover everything */
             z-index: -1;
+            background-color: #1a1a1a;
         }
+        
 
         .ui-container {
             position: relative;
