@@ -14,18 +14,16 @@
             background-color: #000;
         }
 
-                /* Fixed Background Section */
+        /* Background Fix */
         .bg-layer {
             position: fixed;
             top: 0; left: 0;
             width: 100vw; height: 100vh;
-            /* Direct link to your github asset */
             background: url('assets/home-bg.jpg') no-repeat center center;
-            background-size: cover; /* Forces the image to cover everything */
+            background-size: cover;
             z-index: -1;
-            background-color: #1a1a1a;
+            background-color: #0d1b2a; /* Dark blue fallback if image fails */
         }
-        
 
         .ui-container {
             position: relative;
@@ -40,13 +38,13 @@
         .stat-item {
             background: rgba(0,0,0,0.8); border: 1.5px solid #444;
             border-radius: 8px; display: inline-flex; align-items: center;
-            padding: 5px 12px; min-width: 100px; color: white; font-weight: bold;
+            padding: 5px 12px; min-width: 90px; color: white; font-weight: bold;
             margin-right: 8px;
         }
         .lvl-badge {
-            background: #8e44ad; width: 35px; height: 35px;
+            background: #8e44ad; width: 32px; height: 32px;
             border-radius: 50%; display: flex; justify-content: center;
-            align-items: center; border: 2.2px solid white; color: white; font-weight: bold;
+            align-items: center; border: 2px solid white; color: white; font-weight: bold;
         }
 
         /* Center Area */
@@ -72,13 +70,19 @@
         }
 
         /* Bottom Menu */
-        .bottom-nav { display: flex; justify-content: space-around; align-items: center; padding-bottom: 10px; }
+        .bottom-nav { display: flex; justify-content: space-around; align-items: flex-end; padding-bottom: 15px; }
         .play-btn {
             background: #27ae60; color: white; border: none;
             padding: 12px 65px; border-radius: 40px; font-size: 28px;
             font-weight: 900; cursor: pointer; box-shadow: 0 6px 0 #1e8449;
+            transition: 0.1s;
         }
-        .nav-btn { background: #34495e; border: none; padding: 12px 20px; border-radius: 10px; color: white; font-weight: bold; }
+        .play-btn:active { transform: translateY(4px); box-shadow: 0 2px 0 #1e8449; }
+        .nav-btn { 
+            background: #34495e; border: none; padding: 10px 18px; 
+            border-radius: 10px; color: white; font-weight: bold;
+            box-shadow: 0 4px 0 #2c3e50; min-width: 80px;
+        }
     </style>
 </head>
 <body>
@@ -88,20 +92,19 @@
     <div class="ui-container">
         <div class="top-bar">
             <div>
-                <div class="stat-item">💰 1000</div>
+                <div class="stat-item">💰 1,000</div>
                 <div class="stat-item">💎 35</div>
             </div>
             <div class="lvl-badge">7</div>
-            <div style="font-size: 24px; color: white;">⚙️</div>
+            <div style="font-size: 24px; color: #7f8c8d; cursor: pointer;">⚙️</div>
         </div>
 
         <div class="center-area">
             <div class="avatar-circle">
-                <img src="./assets/player.png" alt="" style="width:100%; height:100%; object-fit:cover;" onerror="this.style.display='none'">
                 <div style="font-size: 60px;">👤</div>
             </div>
             <div class="name-tag">
-                <input type="text" id="p-name" value="LOADING..." maxlength="10">
+                <input type="text" id="p-name" value="STARK" maxlength="10">
                 <span onclick="document.getElementById('p-name').focus()" style="cursor:pointer">✏️</span>
             </div>
         </div>
@@ -115,17 +118,13 @@
     </div>
 
     <script>
+        // Fullscreen logic
         function openFullscreen() {
             const elem = document.documentElement;
             if (elem.requestFullscreen) elem.requestFullscreen();
             else if (elem.webkitRequestFullscreen) elem.webkitRequestFullscreen();
         }
         document.addEventListener("click", openFullscreen, { once: true });
-
-        window.onload = () => {
-            const names = ["STARK", "ZODX", "THALA", "SHADOW", "PRO_07"];
-            document.getElementById('p-name').value = names[Math.floor(Math.random() * names.length)];
-        };
     </script>
 </body>
 </html>
