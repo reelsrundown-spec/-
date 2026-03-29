@@ -2,139 +2,117 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Thalappanth - Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Thalappanth Home</title>
     <style>
-        * { box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body, html {
+            width: 100%;
+            height: 100vh;
             margin: 0; padding: 0;
-            width: 100%; height: 100%;
-            overflow: hidden;
-            background-color: #000;
-        }
-
-        /* Ippol image main folder-il aaya kond path njan matti */
-        .bg-layer {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100vw; height: 100vh;
-            background: url('home-bg.jpg') no-repeat center center;
+            background: #000 url('assets/home-bg.jpg') no-repeat center center;
             background-size: 100% 100%;
-            z-index: -1;
+            background-attachment: fixed;
+            overflow: hidden;
+            font-family: 'Arial', sans-serif;
+            color: white;
+            user-select: none;
         }
 
-        .top-bar {
-            position: absolute; top: 0; width: 100%;
+        /* Top Navigation Bar */
+        .top-nav {
+            position: absolute; top: 15px; width: 100%;
             display: flex; justify-content: space-between; align-items: center;
-            padding: 15px 20px; box-sizing: border-box;
-            background: rgba(0,0,0,0.5); z-index: 10;
+            padding: 0 20px;
         }
 
-        .stats-group { display: flex; gap: 12px; }
-
-        .stat-item {
-            background: rgba(0,0,0,0.7); border: 2px solid #444;
-            border-radius: 10px; display: flex; align-items: center;
-            padding: 5px 15px; min-width: 110px; font-weight: bold; color: white;
+        .stats-group { display: flex; gap: 10px; }
+        
+        .stat-box {
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid #444; border-radius: 20px;
+            padding: 5px 15px; display: flex; align-items: center; gap: 10px;
+            font-size: 14px; font-weight: bold;
         }
 
-        .btn-plus {
-            background: #2ecc71; border: none; color: white;
-            margin-left: auto; border-radius: 4px; padding: 0 8px;
-            font-weight: bold; cursor: pointer;
-        }
-
-        .level-badge {
-            background: #8e44ad; width: 35px; height: 35px;
+        .level-circle {
+            background: #6c5ce7; width: 35px; height: 35px;
             border-radius: 50%; display: flex; justify-content: center;
-            align-items: center; border: 2px solid white; font-weight: bold; color: white;
+            align-items: center; border: 2px solid white; font-weight: bold;
         }
 
-        .character-zone {
-            height: 100vh; display: flex; flex-direction: column;
-            justify-content: center; align-items: center;
+        /* Center Player Section */
+        .main-avatar {
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
         }
-
-        .avatar-placeholder {
-            width: 160px; height: 160px; border-radius: 50%;
-            border: 6px solid #f1c40f; background: rgba(0,0,0,0.3);
+        .avatar-glow {
+            width: 130px; height: 130px;
+            border-radius: 50%; border: 4px solid #f1c40f;
+            background: rgba(0, 0, 0, 0.4);
             display: flex; justify-content: center; align-items: center;
-            box-shadow: 0 0 30px rgba(241, 196, 15, 0.4);
+            box-shadow: 0 0 25px rgba(241, 196, 15, 0.4);
         }
 
-        .name-wrapper {
-            margin-top: 20px; display: flex; align-items: center;
-            background: #c0392b; padding: 10px 25px; border-radius: 8px;
-            box-shadow: 0 5px 0 #962d22; gap: 12px;
-        }
-
-        #p-name-input {
-            background: none; border: none; color: white;
-            font-weight: bold; font-size: 20px; text-transform: uppercase;
-            text-align: center; outline: none; width: 140px;
-        }
-
+        /* Bottom Menu Buttons */
         .bottom-nav {
-            position: absolute; bottom: 0; width: 100%;
-            display: flex; justify-content: space-around; align-items: center;
-            padding: 20px; box-sizing: border-box; background: rgba(0,0,0,0.5);
+            position: absolute; bottom: 20px; width: 100%;
+            display: flex; justify-content: center; align-items: center; gap: 15px;
         }
+        .nav-btn {
+            background: #2d3436; color: white; border: none;
+            padding: 10px 20px; border-radius: 8px; font-weight: bold;
+            font-size: 14px; cursor: pointer;
+        }
+        .play-btn {
+            background: #00b894; padding: 15px 70px; border-radius: 15px;
+            font-size: 28px; font-weight: 900; color: white;
+            box-shadow: 0 6px 0 #00947a;
+            cursor: pointer;
+        }
+        .play-btn:active { transform: translateY(4px); box-shadow: 0 2px 0 #00947a; }
 
-        .btn-play {
-            background: #27ae60; color: white; border: none;
-            padding: 12px 60px; border-radius: 45px; font-size: 30px;
-            font-weight: 900; cursor: pointer;
-            box-shadow: 0 7px 0 #1e8449; transition: 0.1s;
-        }
-
-        .btn-nav {
-            background: #34495e; border: none; padding: 10px 20px;
-            border-radius: 12px; color: white; font-weight: bold;
-            box-shadow: 0 4px 0 #2c3e50; cursor: pointer; text-transform: uppercase;
-            min-width: 85px;
-        }
+        .settings-icon { font-size: 30px; cursor: pointer; color: #b2bec3; }
     </style>
 </head>
 <body>
 
-    <div class="bg-layer"></div>
-
-    <div class="top-bar">
+    <div class="top-nav">
         <div class="stats-group">
-            <div class="stat-item">💰 1,000 <button class="btn-plus">+</button></div>
-            <div class="stat-item">💎 35 <button class="btn-plus">+</button></div>
+            <div class="stat-box">💰 1,000</div>
+            <div class="stat-box">💎 35</div>
         </div>
-        <div class="level-badge">7</div>
-        <div style="font-size: 26px; cursor: pointer; color: white;">⚙️</div>
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <div class="level-circle">7</div>
+            <div class="settings-icon" onclick="openSettings()">⚙️</div>
+        </div>
     </div>
 
-    <div class="character-zone">
-        <div class="avatar-placeholder"><span style="font-size: 80px;">👤</span></div>
-        <div class="name-wrapper">
-            <input type="text" id="p-name-input" value="LOADING..." maxlength="12">
-            <span style="cursor:pointer" onclick="document.getElementById('p-name-input').focus()">✏️</span>
+    <div class="main-avatar">
+        <div class="avatar-glow">
+            <span style="font-size: 80px;">👤</span>
         </div>
+        <div style="background: #d63031; padding: 4px 15px; border-radius: 5px; margin-top: 10px;">PLAYER</div>
     </div>
 
     <div class="bottom-nav">
-        <button class="btn-nav">Store</button>
-        <button class="btn-play" onclick="location.href='game.html'">PLAY</button>
-        <button class="btn-nav">Rank</button>
-        <button class="btn-nav">Mode</button>
+        <button class="nav-btn">STORE</button>
+        <button class="play-btn" onclick="startMatch()">PLAY</button>
+        <button class="nav-btn">RANK</button>
+        <button class="nav-btn">MODE</button>
     </div>
 
     <script>
-        const coolNames = ["STARK", "ZODX", "THALA_07", "PRO_GAMER", "SHADOW"];
-        window.onload = () => {
-            const input = document.getElementById('p-name-input');
-            input.value = coolNames[Math.floor(Math.random() * coolNames.length)];
-        };
-        // Fullscreen trigger
-        document.addEventListener("click", () => {
-            const elem = document.documentElement;
-            if (elem.requestFullscreen) elem.requestFullscreen();
-        }, { once: true });
+        function startMatch() {
+            // Multiplayer connection logic will be added here later
+            alert("Connecting to Multiplayer Server...");
+        }
+        function openSettings() {
+            // Redirects to settings.html
+            window.location.href = "settings.html";
+        }
     </script>
 </body>
 </html>
