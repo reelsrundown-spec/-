@@ -5,20 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Thalappanth - Settings</title>
     <style>
-        * { box-sizing: border-box; font-family: 'Arial Black', sans-serif; }
+        * { box-sizing: border-box; font-family: 'Arial Black', sans-serif; -webkit-tap-highlight-color: transparent; }
         
         body, html { 
             margin: 0; padding: 0; width: 100%; height: 100%; 
             overflow: hidden; background-color: #000; color: white; 
         }
 
-        /* Background using your home-bg image */
-        background: url('home-bg.jpg') no-repeat center center;
-        {
+        .bg-layer {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: url('assets/home-bg.jpg') no-repeat center center;
+            background: url('home-bg.jpg') no-repeat center center;
             background-size: cover; z-index: -1; 
-            filter: blur(8px) brightness(0.4); /* Blur effect for settings feel */
+            filter: blur(10px) brightness(0.3);
         }
 
         .container {
@@ -27,46 +25,51 @@
         }
 
         .settings-card {
-            background: rgba(0, 0, 0, 0.85);
-            border: 3px solid #f1c40f;
-            border-radius: 20px;
-            padding: 25px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid #f1c40f;
+            border-radius: 15px;
+            padding: 20px;
             width: 85%;
-            max-width: 450px;
-            box-shadow: 0 0 30px rgba(241, 196, 15, 0.3);
+            max-width: 400px;
+            box-shadow: 0 0 20px rgba(241, 196, 15, 0.2);
         }
 
         h1 { 
-            text-align: center; color: #f1c40f; margin-top: 0; 
-            text-transform: uppercase; letter-spacing: 2px;
-            font-size: 24px;
+            text-align: center; color: #f1c40f; margin: 0 0 20px 0; 
+            text-transform: uppercase; font-size: 22px;
         }
 
         .row {
             display: flex; justify-content: space-between; align-items: center;
-            padding: 15px 0; border-bottom: 1px solid #333;
+            padding: 12px 0; border-bottom: 1px solid #333;
         }
 
-        .label { font-size: 18px; letter-spacing: 1px; }
+        .label { font-size: 16px; font-weight: bold; }
 
         .btn-toggle {
             background: #27ae60; color: white; border: none;
-            padding: 8px 20px; border-radius: 10px; cursor: pointer;
-            font-weight: bold; width: 80px; transition: 0.2s;
+            padding: 6px 15px; border-radius: 8px; cursor: pointer;
+            font-weight: bold; width: 70px; font-size: 12px;
         }
 
         .btn-toggle.off { background: #c0392b; }
 
-        .footer-btns { margin-top: 25px; width: 100%; }
+        .btn-action {
+            background: #2d3436; color: white; border: 1px solid #444;
+            padding: 6px 15px; border-radius: 8px; cursor: pointer;
+            font-weight: bold; font-size: 12px;
+        }
+
+        .footer { margin-top: 20px; }
 
         .btn-back {
             background: #d63031; color: white; border: none;
-            padding: 12px; border-radius: 12px; width: 100%;
-            font-size: 20px; font-weight: 900; cursor: pointer;
-            box-shadow: 0 5px 0 #962d22; text-transform: uppercase;
+            padding: 10px; border-radius: 10px; width: 100%;
+            font-size: 18px; font-weight: 900; cursor: pointer;
+            box-shadow: 0 4px 0 #962d22; text-transform: uppercase;
         }
 
-        .btn-back:active { transform: translateY(3px); box-shadow: 0 2px 0 #962d22; }
+        .btn-back:active { transform: translateY(2px); box-shadow: 0 2px 0 #962d22; }
 
     </style>
 </head>
@@ -84,22 +87,22 @@
             </div>
 
             <div class="row">
-                <span class="label">SOUND</span>
+                <span class="label">SOUNDS</span>
                 <button class="btn-toggle" onclick="toggleBtn(this)">ON</button>
             </div>
 
             <div class="row">
-                <span class="label">VIBRATION</span>
-                <button class="btn-toggle" onclick="toggleBtn(this)">ON</button>
+                <span class="label">CONTROLS</span>
+                <button class="btn-action" onclick="alert('Control Settings coming soon!')">EDIT</button>
             </div>
 
             <div class="row" style="border-bottom: none;">
-                <span class="label">REGION</span>
-                <span style="color: #f1c40f;">ASIA</span>
+                <span class="label">ACCOUNT</span>
+                <button class="btn-action" onclick="alert('Login system coming soon!')" style="background: #2980b9;">LOGIN</button>
             </div>
 
-            <div class="footer-btns">
-                <button class="btn-back" onclick="window.location.href='home.html'">Back to Menu</button>
+            <div class="footer">
+                <button class="btn-back" onclick="window.location.href='home.html'">BACK</button>
             </div>
         </div>
     </div>
@@ -115,11 +118,10 @@
             }
         }
 
-        // Fullscreen support on first click
+        // Fullscreen activation
         document.addEventListener('click', function() {
             const el = document.documentElement;
             if (el.requestFullscreen) el.requestFullscreen();
-            else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
         }, { once: true });
     </script>
 </body>
