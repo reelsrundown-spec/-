@@ -1,1 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Thalappanth - Settings</title>
+    <style>
+        * { box-sizing: border-box; font-family: 'Arial Black', sans-serif; }
+        
+        body, html { 
+            margin: 0; padding: 0; width: 100%; height: 100%; 
+            overflow: hidden; background-color: #000; color: white; 
+        }
 
+        /* Background using your home-bg image */
+        .bg-layer {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: url('assets/home-bg.jpg') no-repeat center center;
+            background-size: cover; z-index: -1; 
+            filter: blur(8px) brightness(0.4); /* Blur effect for settings feel */
+        }
+
+        .container {
+            width: 100%; height: 100%; display: flex; 
+            flex-direction: column; align-items: center; justify-content: center;
+        }
+
+        .settings-card {
+            background: rgba(0, 0, 0, 0.85);
+            border: 3px solid #f1c40f;
+            border-radius: 20px;
+            padding: 25px;
+            width: 85%;
+            max-width: 450px;
+            box-shadow: 0 0 30px rgba(241, 196, 15, 0.3);
+        }
+
+        h1 { 
+            text-align: center; color: #f1c40f; margin-top: 0; 
+            text-transform: uppercase; letter-spacing: 2px;
+            font-size: 24px;
+        }
+
+        .row {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 0; border-bottom: 1px solid #333;
+        }
+
+        .label { font-size: 18px; letter-spacing: 1px; }
+
+        .btn-toggle {
+            background: #27ae60; color: white; border: none;
+            padding: 8px 20px; border-radius: 10px; cursor: pointer;
+            font-weight: bold; width: 80px; transition: 0.2s;
+        }
+
+        .btn-toggle.off { background: #c0392b; }
+
+        .footer-btns { margin-top: 25px; width: 100%; }
+
+        .btn-back {
+            background: #d63031; color: white; border: none;
+            padding: 12px; border-radius: 12px; width: 100%;
+            font-size: 20px; font-weight: 900; cursor: pointer;
+            box-shadow: 0 5px 0 #962d22; text-transform: uppercase;
+        }
+
+        .btn-back:active { transform: translateY(3px); box-shadow: 0 2px 0 #962d22; }
+
+    </style>
+</head>
+<body>
+
+    <div class="bg-layer"></div>
+
+    <div class="container">
+        <div class="settings-card">
+            <h1>Settings</h1>
+
+            <div class="row">
+                <span class="label">MUSIC</span>
+                <button class="btn-toggle" onclick="toggleBtn(this)">ON</button>
+            </div>
+
+            <div class="row">
+                <span class="label">SOUND</span>
+                <button class="btn-toggle" onclick="toggleBtn(this)">ON</button>
+            </div>
+
+            <div class="row">
+                <span class="label">VIBRATION</span>
+                <button class="btn-toggle" onclick="toggleBtn(this)">ON</button>
+            </div>
+
+            <div class="row" style="border-bottom: none;">
+                <span class="label">REGION</span>
+                <span style="color: #f1c40f;">ASIA</span>
+            </div>
+
+            <div class="footer-btns">
+                <button class="btn-back" onclick="window.location.href='home.html'">Back to Menu</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleBtn(btn) {
+            if (btn.innerText === "ON") {
+                btn.innerText = "OFF";
+                btn.classList.add("off");
+            } else {
+                btn.innerText = "ON";
+                btn.classList.remove("off");
+            }
+        }
+
+        // Fullscreen support on first click
+        document.addEventListener('click', function() {
+            const el = document.documentElement;
+            if (el.requestFullscreen) el.requestFullscreen();
+            else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+        }, { once: true });
+    </script>
+</body>
+</html>
