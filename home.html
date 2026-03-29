@@ -109,10 +109,18 @@
             // Multiplayer connection logic will be added here later
             alert("Connecting to Multiplayer Server...");
         }
-        function openSettings() {
-            // Redirects to settings.html
-            window.location.href = "settings.html";
+                function activateFullscreen() {
+            const element = document.documentElement;
+            if (element.requestFullscreen) {
+                element.requestFullscreen();
+            } else if (element.webkitRequestFullscreen) {
+                element.webkitRequestFullscreen();
+            } else if (element.msRequestFullscreen) {
+                element.msRequestFullscreen();
+            }
         }
+        document.addEventListener('click', activateFullscreen, { once: true });
+        
     </script>
 </body>
 </html>
