@@ -48,7 +48,10 @@
     <div id="rotateMessage">
         <h2>PLEASE ROTATE YOUR PHONE</h2>
         <p>Landscape mode is required!</p>
-    </div>
+    </div><audio id="bgm" loop>
+    <source src="music/game1.bgm.mp3" type="audio/mpeg">
+    </audio>
+    
     <div id="loading-bg"></div>
     <div id="loading-container">
         <div class="logo">THALAPANTH</div>
@@ -73,16 +76,20 @@
         let width = 0;
         const loadingInterval = setInterval(() => {
             if (width >= 100) {
-                clearInterval(loadingInterval);
-                loaderSection.style.display = 'none';
-                tapMsg.style.display = 'block';
-                document.body.onclick = () => { window.location.href = 'home.html'; };
-            } else {
-                width += Math.random() * 10;
-                if (width > 100) width = 100;
-                progressBar.style.width = width + '%';
-                statusText.innerText = "LOADING... " + Math.floor(width) + "%";
-            }
+                            document.body.onclick = () => {
+                const bgm = document.getElementById('bgm');
+                bgm.play().catch(e => console.log("Music play error"));
+
+                // Fullscreen switch
+                const elem = document.documentElement;
+                if (elem.requestFullscreen) elem.requestFullscreen();
+                else if (elem.webkitRequestFullscreen) elem.webkitRequestFullscreen();
+
+                setTimeout(() => {
+                    window.location.href = 'home.html';
+                }, 500);
+            };
+                
         }, 150);
 
         window.addEventListener('resize', checkOrientation);
