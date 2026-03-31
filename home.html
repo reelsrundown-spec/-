@@ -25,6 +25,7 @@
             position: absolute; top: 15px; width: 100%;
             display: flex; justify-content: space-between; align-items: center;
             padding: 0 20px;
+            z-index: 10;
         }
 
         .stats-group { display: flex; gap: 10px; }
@@ -47,8 +48,12 @@
             position: absolute; top: 50%; left: 50%;
             transform: translate(-50%, -50%);
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-                        .avatar-glow {
+
+        .avatar-glow {
             width: 250px; 
             height: 250px;
             display: flex; 
@@ -60,6 +65,15 @@
             height: auto;
         }
         
+        .name-tag {
+            background: #d63031; 
+            padding: 4px 20px; 
+            border-radius: 5px; 
+            margin-top: -20px; /* Adjusted to fit the GIF */
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
         /* Bottom Menu Buttons */
         .bottom-nav {
             position: absolute; bottom: 20px; width: 100%;
@@ -90,16 +104,15 @@
         </div>
         <div style="display: flex; align-items: center; gap: 20px;">
             <div class="level-circle">📬</div>
-                    <div class="avatar-glow">
-            <img src="assets/12.gif" alt="Player Avatar">
-                    </div>
-            
-
-    <div class="avatar-glow">
-    <img src="assets/charectors/12.gif" alt="Player Avatar">
+            <div class="settings-icon" onclick="window.location.href='settings.html'">⚙️</div>
+        </div>
     </div>
-            
-        <div style="background: #d63031; padding: 4px 15px; border-radius: 5px; margin-top: 10px;">PLAYER</div>
+
+    <div class="main-avatar">
+        <div class="avatar-glow">
+            <img src="assets/charectors/12.gif" alt="Player">
+        </div>
+        <div class="name-tag">PLAYER</div>
     </div>
 
     <div class="bottom-nav">
@@ -111,10 +124,10 @@
 
     <script>
         function startMatch() {
-            // Multiplayer connection logic will be added here later
             alert("Connecting to Multiplayer Server...");
         }
-                function activateFullscreen() {
+        
+        function activateFullscreen() {
             const element = document.documentElement;
             if (element.requestFullscreen) {
                 element.requestFullscreen();
@@ -125,7 +138,6 @@
             }
         }
         document.addEventListener('click', activateFullscreen, { once: true });
-        
     </script>
 </body>
 </html>
