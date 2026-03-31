@@ -69,7 +69,7 @@
             background: #d63031; 
             padding: 4px 20px; 
             border-radius: 5px; 
-            margin-top: -20px; /* Adjusted to fit the GIF */
+            margin-top: -20px;
             font-weight: bold;
             letter-spacing: 1px;
         }
@@ -97,6 +97,10 @@
 </head>
 <body>
 
+    <audio id="bgm" loop>
+        <source src="music/game1.bgm.mp3" type="audio/mpeg">
+    </audio>
+
     <div class="top-nav">
         <div class="stats-group">
             <div class="stat-box">💰 1,000</div>
@@ -123,6 +127,21 @@
     </div>
 
     <script>
+        const bgm = document.getElementById('bgm');
+
+        // Page load aakumbol music play cheyyanulla function
+        function playMusic() {
+            bgm.play().catch(error => {
+                console.log("Interaction needed to play music");
+            });
+        }
+
+        window.onload = () => {
+            playMusic();
+            // User screen-il thottal music sure aayum play aakum
+            document.addEventListener('click', playMusic, { once: true });
+        };
+
         function startMatch() {
             alert("Connecting to Multiplayer Server...");
         }
