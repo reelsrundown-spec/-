@@ -11,89 +11,92 @@
             display: flex; justify-content: center; align-items: center;
             font-family: 'Segoe UI', sans-serif;
         }
+
         #loading-bg {
             position: absolute; width: 100%; height: 100%;
             background: radial-gradient(circle, #1b263b, #0d1b2a);
             z-index: -1;
         }
+
         #loading-container { text-align: center; color: white; }
         .logo {
             font-size: 50px; font-weight: 900; color: #f1c40f;
             text-shadow: 0 0 20px rgba(241, 196, 15, 0.5);
             margin-bottom: 20px; letter-spacing: 10px;
         }
+
         .progress-box {
             width: 280px; height: 8px; background: rgba(255,255,255,0.1);
             border-radius: 10px; overflow: hidden; border: 1px solid rgba(255,255,255,0.2);
             margin: 0 auto;
         }
-        #progress-bar {
+
+        #prograss-bar {
             width: 0%; height: 100%; background: linear-gradient(90deg, #f1c40f, #e67e22);
-            box-shadow: 0 0 10px #f1c40f;
+            box-shadow: 0 0 10px #f1c40f; transition: 0.1s;
         }
+
         #status { margin-top: 15px; font-size: 12px; letter-spacing: 2px; color: #bdc3c7; }
+        
         #tap-msg {
             display: none; margin-top: 20px; font-size: 22px; font-weight: bold;
             color: #fff; animation: blink 1.2s infinite; cursor: pointer;
         }
+
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
-        #rotateMessage {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #000; color: white; justify-content: center; align-items: center;
-            text-align: center; z-index: 100;
-        }
     </style>
 </head>
 <body>
-    <div id="rotateMessage">
-        <h2>PLEASE ROTATE YOUR PHONE</h2>
-        <p>Landscape mode is required!</p>
-    </div><audio id="bgm" loop>
-    <source src="music/game1.bgm.mp3" type="audio/mpeg">
+
+    <audio id="bgm" loop>
+        <source src="music/game1.bgm.mp3" type="audio/mpeg">
     </audio>
-    
+
     <div id="loading-bg"></div>
     <div id="loading-container">
         <div class="logo">THALAPANTH</div>
         <div id="loader-section">
-            <div class="progress-box"><div id="progress-bar"></div></div>
-            <p id="status">LOADING...</p>
+            <div class="progress-box"><div id="prograss-bar"></div></div>
+            <p id="status">LOADING... 0%</p>
         </div>
         <div id="tap-msg">TAP TO START</div>
     </div>
+
     <script>
-        const progressBar = document.getElementById('progress-bar');
+        const progressBar = document.getElementById('prograss-bar');
         const statusText = document.getElementById('status');
         const loaderSection = document.getElementById('loader-section');
         const tapMsg = document.getElementById('tap-msg');
-        const rotateMsg = document.getElementById('rotateMessage');
-
-        function checkOrientation() {
-            if (window.innerHeight > window.innerWidth) rotateMsg.style.display = 'flex';
-            else rotateMsg.style.display = 'none';
-        }
+        const bgm = document.getElementById('bgm');
 
         let width = 0;
         const loadingInterval = setInterval(() => {
             if (width >= 100) {
-                            document.body.onclick = () => {
-                const bgm = document.getElementById('bgm');
-                bgm.play().catch(e => console.log("Music play error"));
+                clearInterval(loadingInterval);
+                loaderSection.style.display = 'none';
+                tapMsg.style.display = 'block';
 
-                // Fullscreen switch
-                const elem = document.documentElement;
-                if (elem.requestFullscreen) elem.requestFullscreen();
-                else if (elem.webkitRequestFullscreen) elem.webkitRequestFullscreen();
+                document.body.onclick = () => {
+                    // Play music
+                    bgm.play().catch(e => console.log("Audio blocked"));
 
-                setTimeout(() => {
-                    window.location.href = 'home.html';
-                }, 500);
-            };
-                
+                    // Enter Fullscreen
+                    const elem = document.documentElement;
+                    if (elem.requestFullscreen) elem.requestFullscreen();
+                    else if (elem.webkitRequestFullscreen) elem.webkitRequestFullscreen();
+
+                    // Redirect
+                    setTimeout(() => {
+                        window.location.href = 'home.html';
+                    }, 500);
+                };
+            } else {
+                width += Math.random() * 5;
+                if (width > 100) width = 100;
+                progressBar.style.width = width + '%';
+                statusText.innerText = "LOADING... " + Math.floor(width) + "%";
+            }
         }, 150);
-
-        window.addEventListener('resize', checkOrientation);
-        window.addEventListener('load', checkOrientation);
     </script>
 </body>
 </html>
